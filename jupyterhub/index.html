@@ -259,7 +259,7 @@ System Defaults の内容を全て User Preference にコピーし，<code>"font
 <h2 id="julia-notebook">Julia を notebook で使えるようになる</h2>
 <p>ターミナルを開き，<code>/opt/julia-1.7.2/bin/julia</code> と書いてエンターキーを押せば Julia が起動します．</p>
 <p><br><img src="../img/jupyterhub-julia1.png" alt="julia2" width=60%></p>
-<p>なお，<code>~/.bashrc</code> の一番下に <code>export PATH=/opt/Julia-1.7.2/bin:$PATH</code> という 一行を追加して，<code>source ~/.bashrc</code> とすれば，単純に <code>julia</code> で Julia を起動できるようになります（上級者向け）．</p>
+<p>なお，<code>~/.bashrc</code> の一番下に <code>export PATH=/opt/julia-1.7.2/bin:$PATH</code> という 一行を追加して，<code>source ~/.bashrc</code> とすれば，単純に <code>julia</code> で Julia を起動できるようになります（上級者向け）．</p>
 <p>次に，<code>]</code> を押して（一回押すと <code>Julia&gt;</code> が <code>(@v1.7) pkg&gt;</code> に変わり，もう一回押すと元に戻ります），<code>add IJulia</code> と書いてエンターキーを押します．</p>
 <p><br><img src="../img/jupyterhub-julia2.png" alt="julia2" width=60%></p>
 <p>その後，もう一度 <code>]</code> を押して <code>Julia&gt;</code> に戻し，<code>using IJulia</code> と入力しエンターキーを押してください（スクリーンショットを撮るのを忘れました...）．その後，<code>exit()</code> + エンターキー で Julia を抜けてください．</p>
