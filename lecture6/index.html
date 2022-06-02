@@ -225,7 +225,7 @@
 <p>&nbsp; &nbsp; \( q_3= a_3 - (q_1,a_3)q_1 - (q_2,a_3)q_2\) <br></p>
 <p>&nbsp; &nbsp; \(\displaystyle q_3= \frac{q_3}{\|q_3\|}\) <br></p>
 <p>&nbsp; &nbsp; \(\vdots\) <br></p>
-<p>&nbsp; &nbsp; \( \displaystyle q<em>n= a_n - \sum</em>{j=1}^{n-1} (q_j,a_n)q_j \) <br></p>
+<p>&nbsp; &nbsp; \( \displaystyle q_n= a_n - \sum_{j=1}^{n-1} (q_j,a_n)q_j \) <br></p>
 <p>&nbsp; &nbsp; \(\displaystyle q_n = \frac{q_n}{\|q_n\|}\)</p>
 <p>以上を擬似コード的に書けば次のようになるでしょう．</p>
 <pre><code class="language-bash">for i = 1:n
@@ -237,7 +237,7 @@
 end
 </code></pre>
 <p>あとは，Julia の文法に沿って，ベクトルの集合を入力として受け取り，ベクトルの集合を出力する関数を定義すればよいわけです．しかし，ここでいくつか注意すべきことがあります．</p>
-<p>まず，内積やノルムはどうすればよいのでしょうか？実は，<a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/"><strong>LinearAlgebra</strong></a>というパッケージには，内積やノルムを計算する関数が既に用意されています．内積は，<code>dot</code> で計算でき，ノルムは <code>norm</code> で計算できます．<a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#LinearAlgebra.norm">ノルムの項</a>を読むと分かるように，ユークリッドノルム以外のノルムにも対応しています．</p>
+<p>まず，内積やノルムはどうすればよいのでしょうか？実は，<a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/"><strong>LinearAlgebra</strong></a>というパッケージには，内積やノルムを計算する関数が既に用意されています．内積は <code>dot</code> で計算でき，ノルムは <code>norm</code> で計算できます．<a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#LinearAlgebra.norm">ノルムの項</a>を読むと分かるように，ユークリッドノルム以外のノルムにも対応しています．</p>
 <p>ではこれで準備万端かというと，実はまだ考えなければならないことがあります．入力したベクトルの列が線形従属だとすると何が起きるでしょうか？そのような場合，どこかの <code>i</code> で <code>q_i</code> が零ベクトルとなってしまい，このときノルムは \(0\) ですから <strong>零割り</strong> が発生してしまいます．このような場合の対応策はいくつか考えられますが（GS の正規直交化法を使って「何をしたいのか」に強く依存します），少なくとも 「<code>q_i</code> が零ベクトルかどうかの判定」は必要そうです．どのように判定すればよいでしょうか？ベクトルの全ての成分が零かどうかを判定してもよいですが，（零ベクトルでなければ）その後すぐに正規化することを考えると，<code>norm(q_i)</code> が 0 かどうか判定すればよさそうです．では，<code>if norm(q_i) == 0</code> のような条件分岐を書けばよいのでしょうか？実は，このような条件分岐は「数学としては正しい」ですが，コンピュータで計算する際には丸め誤差が避けられないことを踏まえると（数学的には 0 でも，実際の計算では丸め誤差分のズレが生じます），倍精度で計算する場合には例えば <code>tol = 1e-10</code> のように閾値を設定して，<code>if norm(q_i) &lt; tol</code> のように条件分岐を書けばよいということになります（<code>1e-10</code> は \( 10^{-10}\) のことです ）．</p>
 <div class="bs-callout bs-callout-primary">
   <h4>課題</h4>
