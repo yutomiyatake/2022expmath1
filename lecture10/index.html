@@ -236,14 +236,14 @@ q(t) \cr p(t)
 <p>今回は，前回の陽的 Euler 法と Runge-Kutta 法に加えて，symplectic Euler 法とよばれる解法を実装してみましょう．
 Symplectic Euler 法とは次のような解法です：
 \begin{align}
-q<em>1 &amp;= q_0 + h p_0, \cr
+q_1 &amp;= q_0 + h p_0, \cr
 p_1 &amp;= p_0 - h q_1.
 \end{align}
 \( p\) についての更新式の右辺の \( q_1\) がもし \(q_0 \) であれば陽的 Euler 法と一致します（ここだけが陽的 Euler 法と異なります）．
 なお，一般には
 \begin{align}
-q</em>{n+1} &amp;= q<em>{n} + h p</em>{n}, \cr
-p<em>{n+1} &amp;= p</em>{n} - h q_{n+1}
+q_{n+1} &amp;= q_{n} + h p_{n}, \cr
+p_{n+1} &amp;= p_{n} - h q_{n+1}
 \end{align}
 です．</p>
 <p>では，プログラムを見て課題を行っていきましょう．</p>
